@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container-fluid p-5">
+    <h1>Text Input</h1>
+    <div class="content">
+        <div class="item">
+            <form action="{% url 'text_input' %}" method="post" class="upload-form">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit" value="Convert Text">
+            </form>
+            <div class="result-container">
+                <h2>Result</h2>
+                <div class="result-item">
+                    <h4>Audio</h4>
+                    {% if audio is None %}
+                    <p>No audio available</p>
+                    {% else %}
+                    <audio controls>
+                        <source src="{% get_static_prefix %}{{audio}}">
+                    </audio>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

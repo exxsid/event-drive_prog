@@ -1,0 +1,22 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Edit Page
+{% endblock %}
+
+{% block body %}
+    {% if not_found %}
+        <h1>Entry Not Found</h1>
+    {% else %}
+        <h1>Edit Page</h1>
+    {% endif %}
+
+    {% if edit_page_form %}
+        <form action="{{url}}" method="post">
+            {% csrf_token %}
+            {{edit_page_form}}
+            <input type="submit" value="Save edit">
+        </form>
+    {% endif %}
+
+{% endblock %}

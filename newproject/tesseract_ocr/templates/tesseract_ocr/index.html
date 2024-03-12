@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tesseract OCR</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+  </head>
+  <body>
+    <h1>Tesseract OCR</h1>
+    <h3>Source Image</h3>
+    <img src="{% get_static_prefix %}{{file_name}}" alt="source_image" />
+    <h3>Extracted Text</h3>
+    <p>{{extracted_text}}</p>
+  </body>
+</html>

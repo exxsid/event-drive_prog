@@ -1,0 +1,48 @@
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 20%;
+}
+
+.input-col {
+    height: 300px;
+    width: 100%;
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    padding: 0 30%;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    border: 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.upload-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 8px;
+}
+
+.result-container {
+    padding: 5%;
+}
+
+.result-item {
+    padding-left: 5%;
+}

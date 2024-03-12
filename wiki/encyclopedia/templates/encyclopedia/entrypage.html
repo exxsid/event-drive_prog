@@ -1,0 +1,16 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{title}}
+{% endblock %}
+
+{% block body %}
+    <a href="{{edit_page_url}}">Edit</a><br>
+    {% if entry is not None %}
+        <md-block>
+            {{entry}}
+        </md-block>
+    {% else %}
+        <h1>No entry in the encyclopedia</h1>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+
+{% block body %}
+<div class="container-fluid p-5">
+    <h1>
+        Upload
+    </h1>
+    <div class="content">
+        <div class="item">
+            {% if photo is None %}
+            <img src="{% static 'upload-placeholder.png' %}" width="100%" height="100%" id="imageContainer">
+            {% else %}
+            <img src="{% get_static_prefix  %}media/{{photo}}" width="100%" height="100%" id="imageContainer">
+            {% endif %}
+            <form action="{% url 'upload' %}" method="post" class="upload-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{form}}
+                <input type="submit" value="Convert Photo">
+            </form>
+            <div class="result-container">
+                <h2>Result</h2>
+                <div class="result-item">
+                    <h4>Text</h4>
+                    {% if text is None %}
+                    <p>No result</p>
+                    {% else %}
+                    <p>{{text}}</p>
+                    {% endif %}
+                </div>
+                <div class="result-item">
+                    <h4>Audio</h4>
+                    {% if audio is None %}
+                    <p>No audio available</p>
+                    {% else %}
+                    <audio controls>
+                        <source src="{% get_static_prefix %}{{audio}}">
+                    </audio>
+                    {% endif %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'upload.js' %}"></script>
+{% endblock %}
