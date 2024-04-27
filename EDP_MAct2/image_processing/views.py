@@ -53,3 +53,7 @@ def captured_image_classifier(request):
         })
     else:
         return JsonResponse({'error': 'No image uploaded.'})
+
+
+def real_time_prediction(request):
+    return render(request, "image_processing/realtime.html")
