@@ -1,3 +1,5 @@
+import io
+from django.http import JsonResponse
 from django.shortcuts import render
 
 from .utils import image_prediction
@@ -22,10 +24,32 @@ def upload_image(request):
 
             return render(request, "image_processing/upload.html", {
                 "form": form,
-                "category": prediction['category'],
-                "accuracy": prediction['accuracy']
+                "category": prediction['category'].upper(),
+                "accuracy": prediction['accuracy'] * 100,
+                "photo": file_name
             })
 
     return render(request, 'image_processing/upload.html', {
         "form": ImageDocument()
     })
+
+def capture_image(request):
+    return render(request, "image_processing/capture.html")
+
+def captured_image_classifier(request):
+    if request.method == 'POST' and request.FILES.get('image'):
+        uploaded_image = request.FILES.get('image')
+        # Read the content of the uploaded file
+        image_content = uploaded_image.read()
+        # Create an in-memory file-like object from the content
+        image_stream = io.BytesIO(image_content)
+        
+        result = image_prediction.predict_capture_image(image_stream)
+
+        print(result)
+        return JsonResponse({
+            "category": result['category'],
+            "accuracy": float(result['accuracy'])
+        })
+    else:
+        return JsonResponse({'error': 'No image uploaded.'})

@@ -1,50 +1,57 @@
-{% extends 'image_processing/layout.html' %}
-{% load static %}
-
-{% block title %} Upload Image {% endblock %}
-
-{% block body %}
+{% extends 'image_processing/layout.html' %} {% load static %} {% block title %}
+Upload Image {% endblock %} {% block body %}
 <div class="container-fluid p-5">
-    <h1>
-        Upload
-    </h1>
-    <div class="content">
-        <div class="item">
-            {% if photo is None %}
-            <img src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg" width="100%" height="100%" id="imageContainer">
-            {% else %}
-            <img src="{% get_static_prefix  %}media/{{photo}}" width="100%" height="100%" id="imageContainer">
-            {% endif %}
-            <form action="{% url 'upload' %}" method="post" class="upload-form" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{form}}
-                <input type="submit" value="Convert Photo">
-            </form>
-            <div class="result-container">
-                <h2>Result</h2>
-                <div class="result-item">
-                    <h4>Category</h4>
-                    {% if category is None %}
-                    <p>No result</p>
-                    {% else %}
-                    <p>{{category}}</p>
-                    {% endif %}
-                </div>
-                <div class="result-item">
-                    <h4>Accuracy</h4>
-                    {% if accuracy is None %}
-                    <p>No audio available</p>
-                    {% else %}
-                    <p>{{accuracy}}</p>
-                    {% endif %}
-                </div>
-
-            </div>
-        </div>
+  <h1>Upload</h1>
+  <div class="row">
+    <div class="col">
+      {% if photo is None %}
+      <img
+        src="https://img.freepik.com/free-vector/illustration-gallery-icon_53876-27002.jpg"
+        width="500px"
+        height="500px"
+        id="imageContainer"
+      />
+      {% else %}
+      <img
+        src="{% get_static_prefix  %}media/{{photo}}"
+        width="500px"
+        height="500px"
+        id="imageContainer"
+      />
+      {% endif %}
     </div>
+    <div class="col">
+      <form
+        action="{% url 'upload' %}"
+        method="post"
+        class="upload-form"
+        enctype="multipart/form-data"
+      >
+        {% csrf_token %} {{form}}
+        <input type="submit" value="Convert Photo" />
+      </form>
+      <div class="result-container">
+        <h2>Result</h2>
+        <div class="result-item">
+          <h4>Category</h4>
+          {% if category is None %}
+          <p>No category</p>
+          {% else %}
+          <p>{{category}}</p>
+          {% endif %}
+        </div>
+        <div class="result-item">
+          <h4>Accuracy</h4>
+          {% if accuracy is None %}
+          <p>No accuracy</p>
+          {% else %}
+          <p>{{accuracy}}%</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-{% endblock %}
-
-{% block script %}
+{% endblock %} {% block script %}
 <script src="{% static 'upload.js' %}"></script>
 {% endblock %}

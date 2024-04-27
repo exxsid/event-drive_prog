@@ -1,0 +1,53 @@
+{% extends 'image_processing/layout.html' %} 
+{% load static %} 
+{% block title %}
+    Upload Image 
+{% endblock %} 
+
+
+{% block body %}
+<div class="container-fluid p-5">
+    <h1>Live Camera</h1>
+    <div class="row mb-5">
+        <div class="col rounded overflow-hidden input-col">
+            <video id="video" width="100%" height="100%" autoplay></video>
+        </div>
+        <div class="col rounded overflow-hidden border border-3 input-col">
+            {% if photo is None %}
+            <img src="{% static 'image-placeholder.jpg' %}" alt="" id="image" width="100%" height="100%">
+            {% else %}
+            <img src="{% get_static_prefix %}{{photo}}" alt="" id="image" width="100%" height="100%">
+            {% endif %}
+        </div>
+    </div>
+    <div class="button-container">
+        <button id="captureBtn" class="btn btn-primary">Classify Image</button>
+    <canvas id="canvas" style="display: none;"></canvas>
+
+    <h2>Result</h2>
+    <div class="row px-5">
+        <div class="col px-3">
+            <h3>Category</h3>
+            {% if text is None %}
+            <p id="category">No category</p>
+            {% else %}
+            <p id="category">{{category}}</p>
+            {% endif %}
+        </div>
+        <div class="col px-3">
+            <h3>Accuracy</h3>
+            {% if accuracy is None %}
+            <p id="accuracy">No accuracy</p>
+            {% else %}
+            <p id="accuracy">{{accuracy}}%</p>
+            {% endif %}
+
+        </div>
+    </div>
+
+</div>
+{% endblock %} 
+
+{% block script %}
+<script src="{% static 'capture.js' %}"></script>
+{% endblock %}
